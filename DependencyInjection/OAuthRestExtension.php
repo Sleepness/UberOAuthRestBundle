@@ -2,8 +2,8 @@
 
 namespace Uber\OAuthRestBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
@@ -13,23 +13,26 @@ class OAuthRestExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('guzzle.xml');
+        $loader->load('services.xml');
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
         $providers = $config['providers'];
 
-        foreach ($providers as $name => $credentials) {
-            $class = $container->getParameter(sprintf('oauth_rest.provider.%s.class'), $name);
-            $definition = new Definition($class);
-            $definition->setProperty('parent', 'oauth_rest.provider.base');
-            $definition->addMethodCall('setCredentials', [$credentials]);
+        $definitions = [];
 
-            $container->addDefinition(sprintf('oauth_rest.provider.%s', $name), $definition);
+        foreach ($providers as $name => $credentials) {
+            $class = $container->getParameter(sprintf('oauth_rest.provider.%s.class', $name), $name);
+            $definition = new DefinitionDecorator('oauth_rest.provider.base');
+            $definition->setClass($class);
+            $definition->addMethodCall('setCredentials', [$credentials]);
+            $definitions[sprintf('oauth_rest.provider.%s', $name)] = $definition;
         }
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('guzzle.xml');
-        $loader->load('services.xml');
+        $container->addDefinitions($definitions);
     }
 
     public function getAlias()
