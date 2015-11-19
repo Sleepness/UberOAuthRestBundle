@@ -25,6 +25,7 @@ class OAuthRestExtension extends Extension
         $definitions = [];
 
         foreach ($providers as $name => $credentials) {
+            $credentials['provider_name'] = $name;
             $class = $container->getParameter(sprintf('oauth_rest.provider.%s.class', $name), $name);
             $definition = new DefinitionDecorator('oauth_rest.provider.base');
             $definition->setClass($class);

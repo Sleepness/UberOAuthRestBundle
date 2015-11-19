@@ -2,11 +2,15 @@
 
 namespace Uber\OAuthRestBundle\Provider;
 
+use Uber\OAuthRestBundle\Exception\BadRequestException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
 abstract class BaseOAuthProvider implements OAuthProviderInterface
 {
+    const GET = 'GET';
+    const POST = 'POST';
+
     /**
      * @var Client
      */
@@ -37,28 +41,13 @@ abstract class BaseOAuthProvider implements OAuthProviderInterface
 
     /**
      * @param $url
-     * @param array $parameters
-     * @param array $headers
-     * @param null  $method
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     */
-    protected function getTokenResponse($url, array $parameters = [], $headers = array(), $method = null)
-    {
-        $methodToUse = $method ? $method : 'GET';
-
-        return $this->doRequest($url, http_build_query($parameters, '', '&'), $headers, $methodToUse);
-    }
-
-    /**
-     * @param $url
      * @param null $content
      * @param $headers
      * @param $method
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    protected function doRequest($url, $content = null, $headers, $method)
+    protected function doRequest($url, $method, $content = null, $headers = [])
     {
         if (is_string($content)) {
             $contentLength = strlen($content);
@@ -74,7 +63,7 @@ abstract class BaseOAuthProvider implements OAuthProviderInterface
             $response = $this->client->request(strtoupper($method), $url, $headers);
         } catch (ClientException $e) {
             if ($e->hasResponse()) {
-                return json_decode($e->getResponse()->getBody()->getContents());
+                throw new BadRequestException('Error while sending request', $this->credentials['provider_name'], $e->getCode(), $e);
             }
         }
 

@@ -2,13 +2,20 @@
 
 namespace Uber\OAuthRestBundle\Provider;
 
+use Uber\OAuthRestBundle\Model\User;
 use Uber\OAuthRestBundle\Provider\BaseOAuthProvider as BaseProvider;
 
 class VkProvider extends BaseProvider
 {
     const ACCESS_TOKEN_URL = 'https://oauth.vk.com/access_token';
     const INFOS_URL = 'https://api.vk.com/method/users.get';
+    const PROVIDER_NAME = 'vk';
 
+    /**
+     * @param $accessToken
+     *
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
     public function getUserInformation($accessToken)
     {
         $parameters = array(
@@ -17,13 +24,13 @@ class VkProvider extends BaseProvider
 
         $url = $this->normalizeUrl(self::INFOS_URL, $parameters);
 
-        $response = $this->doRequest($url, [], 'GET');
+        $response = $this->doRequest($url, self::GET);
 
         if (isset($accessToken->email)) {
-            $response['response'][0]['email'] = $accessToken->email;
+            $response->response[0]->email = $accessToken->email;
         }
 
-        return $response;
+        return $response->response[0];
     }
 
     /**
@@ -41,16 +48,27 @@ class VkProvider extends BaseProvider
             'redirect_uri' => $this->credentials['redirect_uri'],
         ];
 
-        $response = $this->doRequest($this->normalizeUrl(self::ACCESS_TOKEN_URL, $parameters), $parameters, [], 'GET');
+        $response = $this->doRequest($this->normalizeUrl(self::ACCESS_TOKEN_URL, $parameters), self::GET, $parameters);
 
         return $response;
     }
 
+    /**
+     * @param $code
+     *
+     * @return User
+     */
     public function getUser($code)
     {
         $accessToken = $this->getAccessToken($code);
         $userInformation = $this->getUserInformation($accessToken);
 
-        return json_encode($userInformation);
+        $user = new User();
+        $user->socialId = $userInformation->uid;
+        $user->email = $userInformation->email;
+        $user->firstName = $userInformation->first_name;
+        $user->lastName = $userInformation->last_name;
+
+        return $user;
     }
 }
