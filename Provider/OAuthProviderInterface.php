@@ -1,6 +1,6 @@
 <?php
 
-namespace Uber\OAuthRestBundle\Provider;
+namespace Sleepness\UberOAuthRestBundle\Provider;
 
 interface OAuthProviderInterface
 {

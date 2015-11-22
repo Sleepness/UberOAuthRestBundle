@@ -1,6 +1,6 @@
 <?php
 
-namespace Uber\OAuthRestBundle\Exception;
+namespace Sleepness\UberOAuthRestBundle\Exception;
 
 class BadRequestException extends \RuntimeException
 {

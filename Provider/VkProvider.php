@@ -1,9 +1,9 @@
 <?php
 
-namespace Uber\OAuthRestBundle\Provider;
+namespace Sleepness\UberOAuthRestBundle\Provider;
 
-use Uber\OAuthRestBundle\Model\User;
-use Uber\OAuthRestBundle\Provider\BaseOAuthProvider as BaseProvider;
+use Sleepness\UberOAuthRestBundle\Model\User;
+use Sleepness\UberOAuthRestBundle\Provider\BaseOAuthProvider as BaseProvider;
 
 class VkProvider extends BaseProvider
 {

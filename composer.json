@@ -1,7 +1,7 @@
 {
     "name": "uber/oauth-rest-bundle",
     "type": "symfony-bundle",
-    "description": "OAuthRestBundleOAuthRestBundle",
+    "description": "OAuthRestBundle",
     "keywords": ["social", "api", "rest", "oauth"],
     "homepage": "https://github.com/Sleepness/UberOAuthRestBundle",
     "license": "MIT",
@@ -14,6 +14,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
-        "psr-4": { "Uber\\OAuthRestBundle\\": "" }
+        "psr-4": {
+            "Sleepness\\UberOAuthRestBundle\\" : ""
+        }
     }
 }
