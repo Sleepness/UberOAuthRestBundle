@@ -1,6 +1,6 @@
 <?php
 
-namespace Uber\OAuthRestBundle\Model;
+namespace Sleepness\UberOAuthRestBundle\Model;
 
 class User
 {

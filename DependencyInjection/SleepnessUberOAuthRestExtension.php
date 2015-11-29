@@ -1,6 +1,6 @@
 <?php
 
-namespace Uber\OAuthRestBundle\DependencyInjection;
+namespace Sleepness\UberOAuthRestBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
 
-class OAuthRestExtension extends Extension
+class SleepnessUberOAuthRestExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
