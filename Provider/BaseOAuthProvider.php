@@ -2,7 +2,7 @@
 
 namespace Sleepness\UberOAuthRestBundle\Provider;
 
-use Uber\OAuthRestBundle\Exception\BadRequestException;
+use Sleepness\UberOAuthRestBundle\Exception\BadRequestException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
@@ -49,16 +49,16 @@ abstract class BaseOAuthProvider implements OAuthProviderInterface
      */
     protected function doRequest($url, $method, $content = null, $headers = [])
     {
-        if (is_string($content)) {
-            $contentLength = strlen($content);
-        } elseif (is_array($content)) {
-            $contentLength = strlen(implode('', $content));
-        } else {
-            $contentLength = 0;
-        }
+        // if (is_string($content)) {
+            // $contentLength = strlen($content);
+        // } elseif (is_array($content)) {
+            // $contentLength = strlen(implode('', $content));
+        // } else {
+            // $contentLength = 0;
+        // }
 
-        $headers = array_merge(['Content-Length: '.$contentLength], $headers);
-
+        // $headers = array_merge(['Content-Length: '.$contentLength], $headers);
+// var_dump($headers);exit;
         try {
             $response = $this->client->request(strtoupper($method), $url, $headers);
         } catch (ClientException $e) {
