@@ -5,13 +5,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="oauth_rest.provider.fb.class">Uber\OAuthRestBundle\Provider\FacebookProvider</parameter>
-        <parameter key="oauth_rest.provider.gp.class">Uber\OAuthRestBundle\Provider\GooglePlusProvider</parameter>
-        <parameter key="oauth_rest.provider.vk.class">Uber\OAuthRestBundle\Provider\VkProvider</parameter>
+        <parameter key="oauth_rest.provider.fb.class">Sleepness\UberOAuthRestBundle\Provider\FacebookProvider</parameter>
+        <parameter key="oauth_rest.provider.gp.class">Sleepness\UberOAuthRestBundle\Provider\GooglePlusProvider</parameter>
+        <parameter key="oauth_rest.provider.vk.class">Sleepness\UberOAuthRestBundle\Provider\VkProvider</parameter>
     </parameters>
     
     <services>
-        <service id="oauth_rest.provider.base" class="Uber\OAuthRestBundle\Provider\BaseOAuthProvider" abstract="true">
+        <service id="oauth_rest.provider.base" class="Sleepness\UberOAuthRestBundle\Provider\BaseOAuthProvider" abstract="true">
             <argument type="service" id="guzzle.client"/>
         </service>
     </services>
