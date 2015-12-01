@@ -7,8 +7,8 @@ use Sleepness\UberOAuthRestBundle\Model\User;
 
 class GooglePlusProvider extends BaseProvider
 {
-    const ACCESS_TOKEN_URL = 'https://accounts.google.com/o/oauth2/token';
-    const INFOS_URL = 'https://www.googleapis.com/oauth2/v1/userinfo';
+    const ACCESS_TOKEN_URL = 'https://www.googleapis.com/oauth2/v3/token';
+    const INFOS_URL = 'https://www.googleapis.com/oauth2/v3/userinfo';
     const PROVIDER_NAME = 'gp';
     const SCOPE = 'https://www.googleapis.com/auth/userinfo.email';
 
@@ -21,7 +21,7 @@ class GooglePlusProvider extends BaseProvider
     {
         $parameters = array(
             'access_token' => $accessToken->access_token,
-            'scope' => self::SCOPE
+            'scope' => self::SCOPE,
         );
 
         $url = $this->normalizeUrl(self::INFOS_URL, $parameters);
@@ -43,12 +43,17 @@ class GooglePlusProvider extends BaseProvider
             'client_id' => $this->credentials['client_id'],
             'client_secret' => $this->credentials['client_secret'],
             'redirect_uri' => $this->credentials['redirect_uri'],
-            'grant_type' => 'authorization_code'
+            'grant_type' => 'authorization_code',
         ];
 
-        $content = http_build_query($parameters, '', '&');
-
-        $response = $this->doRequest(self::ACCESS_TOKEN_URL, self::POST, $content, ['body' => $content]);
+        $response = $this->doRequest(
+            self::ACCESS_TOKEN_URL,
+            self::POST,
+            [
+                'body' => http_build_query($parameters, '', '&'),
+                'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
+            ]
+        );
 
         return $response;
     }
@@ -61,14 +66,14 @@ class GooglePlusProvider extends BaseProvider
     public function getUser($code)
     {
         $accessToken = $this->getAccessToken($code);
-        var_dump($accessToken);
         $userInformation = $this->getUserInformation($accessToken);
 
         $user = new User();
-        $user->socialId = $userInformation->id;
+        $user->socialId = $userInformation->sub;
+        $user->nickName = $userInformation->name;
         $user->email = $userInformation->email;
-        $user->firstName = $userInformation->first_name;
-        $user->lastName = $userInformation->last_name;
+        $user->firstName = $userInformation->given_name;
+        $user->lastName = $userInformation->family_name;
 
         return $user;
     }

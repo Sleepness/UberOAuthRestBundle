@@ -21,7 +21,7 @@ class FacebookProvider extends BaseProvider
     {
         $parameters = array(
             'access_token' => $accessToken->access_token,
-            'fields' => self::FIELDS
+            'fields' => self::FIELDS,
         );
 
         $url = $this->normalizeUrl(self::INFOS_URL, $parameters);

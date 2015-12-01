@@ -47,20 +47,14 @@ abstract class BaseOAuthProvider implements OAuthProviderInterface
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    protected function doRequest($url, $method, $content = null, $headers = [])
+    protected function doRequest($url, $method, array $options = [])
     {
-        // if (is_string($content)) {
-            // $contentLength = strlen($content);
-        // } elseif (is_array($content)) {
-            // $contentLength = strlen(implode('', $content));
-        // } else {
-            // $contentLength = 0;
-        // }
-
-        // $headers = array_merge(['Content-Length: '.$contentLength], $headers);
-// var_dump($headers);exit;
         try {
-            $response = $this->client->request(strtoupper($method), $url, $headers);
+            $response = $this->client->request(
+                strtoupper($method),
+                $url,
+                $options
+            );
         } catch (ClientException $e) {
             if ($e->hasResponse()) {
                 throw new BadRequestException('Error while sending request', $this->credentials['provider_name'], $e->getCode(), $e);
