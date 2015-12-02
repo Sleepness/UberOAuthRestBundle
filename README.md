@@ -2,6 +2,20 @@ OAuthRest Bundle
 ====================
 Adds support for authenticating users via OAuth2 in Symfony2 REST
 
+Enable the bundle
+====================
+Enable the bundle in the kernel:
+
+```php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new new Sleepness\UberOAuthRestBundle\SleepnessUberOAuthRestBundle(),
+    );
+}
 
 Configuring providers
 ===================================
