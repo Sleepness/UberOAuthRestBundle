@@ -13,7 +13,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new new Sleepness\UberOAuthRestBundle\SleepnessUberOAuthRestBundle(),
+        new Sleepness\UberOAuthRestBundle\SleepnessUberOAuthRestBundle(),
     );
 }
 ```
