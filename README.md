@@ -16,6 +16,7 @@ public function registerBundles()
         new new Sleepness\UberOAuthRestBundle\SleepnessUberOAuthRestBundle(),
     );
 }
+```
 
 Configuring providers
 ===================================
