@@ -30,6 +30,6 @@ oauth_rest:
 
 ##### Built-in resource owners:
 
-- [Facebook](provider/fb.md)
-- [Google](provider/gp.md)
-- [Vkontakte](provider/vk.md)
+- [Facebook](Resources/doc/provider/fb.md)
+- [Google](Resources/doc/provider/gp.md)
+- [Vkontakte](Resources/doc/provider/vk.md)
