@@ -65,9 +65,9 @@ class VkProvider extends BaseProvider
 
         $user = new User();
         $user->socialId = $userInformation->uid;
-        $user->email = $userInformation->email;
-        $user->firstName = $userInformation->first_name;
-        $user->lastName = $userInformation->last_name;
+        $user->email = $userInformation->email ?: null;
+        $user->firstName = $userInformation->first_name ?: null;
+        $user->lastName = $userInformation->last_name ?: null;
 
         return $user;
     }

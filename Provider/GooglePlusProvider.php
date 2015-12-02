@@ -70,10 +70,10 @@ class GooglePlusProvider extends BaseProvider
 
         $user = new User();
         $user->socialId = $userInformation->sub;
-        $user->nickName = $userInformation->name;
-        $user->email = $userInformation->email;
-        $user->firstName = $userInformation->given_name;
-        $user->lastName = $userInformation->family_name;
+        $user->nickName = $userInformation->name ?: null;
+        $user->email = $userInformation->email ?: null;
+        $user->firstName = $userInformation->given_name ?: null;
+        $user->lastName = $userInformation->family_name ?: null;
 
         return $user;
     }
