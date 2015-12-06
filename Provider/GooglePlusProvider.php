@@ -3,7 +3,7 @@
 namespace Sleepness\UberOAuthRestBundle\Provider;
 
 use Sleepness\UberOAuthRestBundle\Provider\BaseOAuthProvider as BaseProvider;
-use Sleepness\UberOAuthRestBundle\Model\User;
+use Sleepness\UberOAuthRestBundle\Model\User as UserDto;
 
 class GooglePlusProvider extends BaseProvider
 {
@@ -61,14 +61,14 @@ class GooglePlusProvider extends BaseProvider
     /**
      * @param $code
      *
-     * @return User
+     * @return UserDto
      */
     public function getUser($code)
     {
         $accessToken = $this->getAccessToken($code);
         $userInformation = $this->getUserInformation($accessToken);
 
-        $user = new User();
+        $user = new UserDto();
         $user->socialId = $userInformation->sub;
         $user->nickName = $userInformation->name ?: null;
         $user->email = $userInformation->email ?: null;

@@ -28,7 +28,7 @@ To make this bundle work you need to add the following to your app/config/config
 oauth_rest:
 ```
 
-##### Built-in resource owners:
+##### Built-in providers:
 
 - [Facebook](Resources/doc/provider/fb.md)
 - [Google](Resources/doc/provider/gp.md)

@@ -22,18 +22,16 @@ class SleepnessUberOAuthRestExtension extends Extension
 
         $providers = $config['providers'];
 
-        $definitions = [];
-
         foreach ($providers as $name => $credentials) {
             $credentials['provider_name'] = $name;
+
             $class = $container->getParameter(sprintf('oauth_rest.provider.%s.class', $name), $name);
             $definition = new DefinitionDecorator('oauth_rest.provider.base');
             $definition->setClass($class);
             $definition->addMethodCall('setCredentials', [$credentials]);
-            $definitions[sprintf('oauth_rest.provider.%s', $name)] = $definition;
-        }
 
-        $container->addDefinitions($definitions);
+            $container->setDefinition(sprintf('oauth_rest.provider.%s', $name), $definition);
+        }
     }
 
     public function getAlias()

@@ -3,7 +3,7 @@
 namespace Sleepness\UberOAuthRestBundle\Provider;
 
 use Sleepness\UberOAuthRestBundle\Provider\BaseOAuthProvider as BaseProvider;
-use Sleepness\UberOAuthRestBundle\Model\User;
+use Sleepness\UberOAuthRestBundle\Model\User as UserDto;
 
 class FacebookProvider extends BaseProvider
 {
@@ -54,14 +54,14 @@ class FacebookProvider extends BaseProvider
     /**
      * @param $code
      *
-     * @return User
+     * @return UserDto
      */
     public function getUser($code)
     {
         $accessToken = $this->getAccessToken($code);
         $userInformation = $this->getUserInformation($accessToken);
 
-        $user = new User();
+        $user = new UserDto();
         $user->socialId = $userInformation->id;
         $user->email = $userInformation->email ?: null;
         $user->firstName = $userInformation->first_name ?: null;

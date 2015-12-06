@@ -2,8 +2,8 @@
 
 namespace Sleepness\UberOAuthRestBundle\Provider;
 
-use Sleepness\UberOAuthRestBundle\Model\User;
 use Sleepness\UberOAuthRestBundle\Provider\BaseOAuthProvider as BaseProvider;
+use Sleepness\UberOAuthRestBundle\Model\User as UserDto;
 
 class VkProvider extends BaseProvider
 {
@@ -56,14 +56,14 @@ class VkProvider extends BaseProvider
     /**
      * @param $code
      *
-     * @return User
+     * @return UserDto
      */
     public function getUser($code)
     {
         $accessToken = $this->getAccessToken($code);
         $userInformation = $this->getUserInformation($accessToken);
 
-        $user = new User();
+        $user = new UserDto();
         $user->socialId = $userInformation->uid;
         $user->email = $userInformation->email ?: null;
         $user->firstName = $userInformation->first_name ?: null;
