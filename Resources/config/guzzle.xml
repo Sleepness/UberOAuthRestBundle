@@ -5,9 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="guzzle.client" class="Guzzle\Service\Client">
-            <argument type="string">http://example.com</argument>
-            <argument type="collection" key="options"/>
+        <service id="guzzle.client" class="GuzzleHttp\Client">
         </service>
     </services>
 
