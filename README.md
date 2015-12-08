@@ -1,5 +1,8 @@
 SleepnessUberOAuthRestBundle
 ====================
+
+[![Build Status](https://travis-ci.org/Sleepness/UberOAuthRestBundle.svg?branch=develop)](https://travis-ci.org/Sleepness/UberOAuthRestBundle)
+
 Adds support for authenticating users via OAuth2 in Symfony2 REST
 
 Enable the bundle
