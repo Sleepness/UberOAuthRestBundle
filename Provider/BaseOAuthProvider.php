@@ -41,9 +41,8 @@ abstract class BaseOAuthProvider implements OAuthProviderInterface
 
     /**
      * @param $url
-     * @param null $content
-     * @param $headers
      * @param $method
+     * @param array $options
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
