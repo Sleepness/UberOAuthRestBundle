@@ -57,7 +57,12 @@ abstract class BaseOAuthProvider implements OAuthProviderInterface
             );
         } catch (ClientException $e) {
             if ($e->hasResponse()) {
-                throw new BadRequestException('Error while sending request', $this->credentials['provider_name'], $e->getCode(), $e);
+                throw new BadRequestException(
+                    'Error while sending request',
+                    $this->credentials['provider_name'],
+                    $e->getCode(),
+                    $e
+                );
             }
         }
 
