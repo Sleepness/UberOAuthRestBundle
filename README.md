@@ -5,6 +5,40 @@ SleepnessUberOAuthRestBundle
 
 Adds support for authenticating users via OAuth2 in Symfony2 REST
 
+Motivation
+====================
+You curious why you need this bundle, if there is shiny [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle).
+HWIOAuthBundle requires sessions and forms
+
+```xml
+<service id="hwi_oauth.abstract_resource_owner.oauth2" class="%hwi_oauth.resource_owner.oauth2.class%"
+         parent="hwi_oauth.abstract_resource_owner.generic" abstract="true">
+    <argument type="service" id="hwi_oauth.storage.session" />
+</service>
+```
+
+```php
+$formHandler = $this->container->get('hwi_oauth.registration.form.handler');
+...
+$this->authenticateUser($request, $form->getData(), $error->getResourceOwnerName(), $error->getRawToken());
+```
+
+meanwhile true RESTful app must be stateless
+
+```yml
+# app/config/security.yml
+security:
+    # ...
+
+    firewalls:
+        main:
+            http_basic: ~
+            stateless:  true
+```
+
+UberOAuthRestBundle aims Rest applications only. If you produce pure stateless app and want add few social stuff -- UberOAuthRestBundle this is exactly what you need.
+Bundle provides dead-simply Interface, and contains built-in handlers for popular SocialNetworks (OAuth servers)
+
 Enable the bundle
 ====================
 Enable the bundle in the kernel:
